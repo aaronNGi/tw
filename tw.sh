@@ -3,8 +3,8 @@
 prog_name=${0##*/}
 version=1.0
 version_text="$prog_name - List online twitch channels v$version"
-options="c f: l L h q v V"
-help_text="Usage: $prog_name [-f <file>] [-hlLqvV] [<channel>]...
+options="c f: l L h q v"
+help_text="Usage: $prog_name [-f <file>] [-hlLqv] [<channel>]...
 
 List online twitch channels
 
@@ -13,8 +13,7 @@ List online twitch channels
         -L         Login to twitch.tv and acquire an access token
         -h         Display this help text and exit
         -q         Quiet
-        -v         Verbose mode
-        -V         Display version information and exit"
+        -v         Display version information and exit"
 
 main() {
 	set_defaults
@@ -34,14 +33,8 @@ main() {
 			fi
 		}
 		$option_h && usage
-		$option_v && curl_opts="$curl_opts --verbose"
- 		$option_V && version
-		$option_q && {
-			info() { :; }
-			verbose() { :; }
-			warning() { :; }
-		}
-		$option_v || verbose() { :; }
+ 		$option_v && version
+		$option_q && warning() { :; }
 		$option_L && authorize
 	}
 
@@ -125,7 +118,6 @@ parse_options() {
 	unset _opt _optstring OPTARG
 }
 
-info()    { printf %s\\n "$*" >&2; }
 verbose() { printf %s\\n "$*" >&2; }
 version() { printf %s\\n "$version_text"; exit; }
 warning() { printf '%s: %s\n' "$prog_name" "$*" >&2; }
@@ -208,7 +200,7 @@ write_token() {
 
 read_token() {
 	! [ -r "$token_file" ] &&
-		return
+		return 1
 
 	read -r access_token _ <"$token_file" || :
 }

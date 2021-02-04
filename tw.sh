@@ -160,7 +160,7 @@ check_deps() {
 
 authorize() {
 	_auth_state=$(LC_CTYPE=C tr -dc "[:alnum:]" </dev/urandom |
-		head -c 32)
+		dd bs=1 count=32 2>/dev/null)
 	_=$auth_url/oauth2/authorize
 	_=$_\?client_id=$client_id
 	_=$_\&response_type=token

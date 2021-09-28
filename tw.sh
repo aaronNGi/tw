@@ -164,7 +164,7 @@ authorize() {
 	x=$auth_url/oauth2/authorize
 	x=$x\?client_id=$client_id
 	x=$x\&response_type=token
-	x=$x\&state=$xauth_state
+	x=$x\&state=$_auth_state
 	x=$x\&redirect_uri=$redirect_uri
 	x=$x\&scope=
 	x=$x\&force_verify=true
@@ -172,9 +172,9 @@ authorize() {
 
 	x="Visit the following link and press 'Authorize'. After"
 	x="$x authorizing, you${nl}will be redirected to a non-existing"
-	x="$x website.$nl$nl${esc}[4m$xauth_url${esc}[0m$nl${nl}From the"
+	x="$x website.$nl$nl${esc}[4m$_auth_url${esc}[0m$nl${nl}From the"
 	x="$x current URL (in your web-browsers address bar), make sure"
-	x="$x the$nl'state' parameter matches:$nl$nl$xauth_state$nl$nl"
+	x="$x the$nl'state' parameter matches:$nl$nl$_auth_state$nl$nl"
 	x="${x}Then copy the 'access_token' parameter from the URL and"
 	x="$x enter it here.$nl${nl}Enter token: "
 

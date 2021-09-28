@@ -122,7 +122,7 @@ verbose() { printf %s\\n "$*" >&2; }
 version() { printf %s\\n "$version_text"; exit; }
 warning() { printf '%s: %s\n' "$prog_name" "$*" >&2; }
 
-error() { 
+error() {
 	_error=${1:-1}
 	shift
 	printf '%s: Error: %s\n' "$prog_name" "$*" >&2
@@ -161,24 +161,24 @@ check_deps() {
 authorize() {
 	_auth_state=$(LC_CTYPE=C tr -dc "[:alnum:]" </dev/urandom |
 		dd bs=1 count=32 2>/dev/null)
-	_=$auth_url/oauth2/authorize
-	_=$_\?client_id=$client_id
-	_=$_\&response_type=token
-	_=$_\&state=$_auth_state
-	_=$_\&redirect_uri=$redirect_uri
-	_=$_\&scope=
-	_=$_\&force_verify=true
-	_auth_url=$_
+	x=$auth_url/oauth2/authorize
+	x=$x\?client_id=$client_id
+	x=$x\&response_type=token
+	x=$x\&state=$xauth_state
+	x=$x\&redirect_uri=$redirect_uri
+	x=$x\&scope=
+	x=$x\&force_verify=true
+	_auth_url=$x
 
-	_="Visit the following link and press 'Authorize'. After"
-	_="$_ authorizing, you${nl}will be redirected to a non-existing"
-	_="$_ website.$nl$nl${esc}[4m$_auth_url${esc}[0m$nl${nl}From the"
-	_="$_ current URL (in your web-browsers address bar), make sure"
-	_="$_ the$nl'state' parameter matches:$nl$nl$_auth_state$nl$nl"
-	_="${_}Then copy the 'access_token' parameter from the URL and"
-	_="$_ enter it here.$nl${nl}Enter token: "
+	x="Visit the following link and press 'Authorize'. After"
+	x="$x authorizing, you${nl}will be redirected to a non-existing"
+	x="$x website.$nl$nl${esc}[4m$xauth_url${esc}[0m$nl${nl}From the"
+	x="$x current URL (in your web-browsers address bar), make sure"
+	x="$x the$nl'state' parameter matches:$nl$nl$xauth_state$nl$nl"
+	x="${x}Then copy the 'access_token' parameter from the URL and"
+	x="$x enter it here.$nl${nl}Enter token: "
 
-	printf '%s' "$_" >&2
+	printf '%s' "$x" >&2
 	read -r access_token </dev/tty
 
 	write_token "$access_token"

@@ -235,7 +235,7 @@ list_channels() {
 	# in case `curl` has an error. Only the exit status of the
 	# pipelines last command is considered otherwise.
 	printf '%s\n' "$_response" \
-	| jq -jr --arg long "$_long_listing" '.data[] |
+	| jq -jrM --arg long "$_long_listing" '.data[] |
 		if $long == "true" then
 			"\u001b[1m\(.user_name)\u001b[m ("
 		else
